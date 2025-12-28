@@ -71,10 +71,11 @@ function App() {
           e.stopPropagation()
           closeStory()
           }}>X</button>
+        {loading && <p style={{color:"white",position:"absolute"}}>Loading...</p>}
         <img key={index} src={currentStory.image} alt='Current Story' 
         className='story-img'
         onLoad={()=>setLoading(false)} />
-        {loading && <p style={{color:"black",position:"absolute"}}>Loading...</p>}
+        
       </div>
       </>}
     </div>

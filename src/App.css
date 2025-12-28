@@ -16,7 +16,7 @@ display: none;
 }
 .story-list img{
   border-radius: 50%;
-  border:2px solid #d01c73;
+  border:none;
   margin-right: 10px;
   width: 70px;
   height: 70px;
