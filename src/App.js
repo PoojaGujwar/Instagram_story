@@ -2,6 +2,7 @@
 import { useEffect, useState } from 'react';
 import './App.css';
 import storiesData from "./stories"
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
   const [index, setIndex] = useState(0)
@@ -16,6 +17,8 @@ function App() {
       return ()=>clearTimeout(timer)
     }
   },[index, currentStory])
+
+  
 
   console.log(storiesData)
   const openStory = (i) => {
@@ -42,10 +45,11 @@ function App() {
     }
   }
   const handleTap = (e) => {
-    console.log(e)
-    const x = e.clientX;
+    const touch = e.touches?e.touches[0]:e
+    console.log(e.touches?e.touches[0]:e)
+     const x = touch.clientX;
     const width = window.innerWidth
-    console.log(width, x)
+   // console.log(width, x)
     if (x < width / 2) {
       goPrev()
     } else {
@@ -54,15 +58,19 @@ function App() {
   }
   return (
     <div>
-      <h1>Instagram story</h1>
-      <div className='story-list'>
-        
+      <h4 className='mt-3 mb-5  text-center'>Instagram story</h4>
+        <div className='story-list'>
           {storiesData.map((story, i) =>
+          <>
+     
+          <span>{story.username}</span>
             <img key={i} src={story.image} alt='story'
               onClick={() => openStory(i)} />
+              
+              </>
           )}
-        
-      </div>
+         </div>
+     
       {currentStory &&<> 
       <div onClick={handleTap} className='story-view'
       >
@@ -72,9 +80,19 @@ function App() {
           closeStory()
           }}>X</button>
         {loading && <p style={{color:"white",position:"absolute"}}>Loading...</p>}
-        <img key={index} src={currentStory.image} alt='Current Story' 
+        <div className='card'>
+          <div className='card-header text-center'>
+             <h3 className='card-title'>{currentStory.username}</h3>
+          </div>
+          <div className='card-body'>
+ <img src={currentStory.image} alt='Current Story' 
         className='story-img'
-        onLoad={()=>setLoading(false)} />
+        onLoad={()=>setLoading(false)}
+         />
+          </div>
+        </div>
+       
+       
         
       </div>
       </>}
